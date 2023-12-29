@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <title>Age Caculator</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --poping-family: "Poppins", sans-serif;
+        --roboto-family: "Roboto", sans-serif;
+        --yellow: #ffa502;
+        --black: #080808;
+        --white: #fff;
+      }
+
+      html {
+        font-size: 62.5%;
+      }
+
+      body {
+        font-size: 1.6rem;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--yellow);
+      }
+
+      .age_body {
+        padding: 3rem;
+        border-radius: 1rem;
+        background-color: var(--black);
+      }
+      .result_box {
+        border-radius: 1rem;
+        background-color: var(--black);
+        padding: 2.5rem 1rem;
+      }
+
+      h2 {
+        font-size: 2.5rem !important;
+        font-family: var(--poping-family);
+      }
+
+      .form-control {
+        font-size: 1.5rem;
+        width: 14rem;
+        -webkit-appearance: none !important;
+      }
+
+      .form-control:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: var(--yellow);
+      }
+
+      .btn-primary {
+        width: 14rem;
+        height: 4rem;
+        margin-inline: auto !important;
+        display: block;
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        text-transform: capitalize;
+        font-family: var(--poping-family);
+        transition: all 0.4s linear;
+        background-color: var(--yellow);
+        border-color: var(--yellow);
+      }
+
+      .btn-primary:hover,
+      .btn-primary:focus {
+        background-color: rgb(255, 188, 64);
+        border-color: var(--yellow);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container age_section">
+      <div class="row">
+        <div class="col-lg-5 mx-auto">
+          <div class="age_body shadow-sm">
+            <div
+              class="d-flex align-items-center justify-content-center gap-sm-5 gap-4"
+            >
+              <div class="age_box text-center">
+                <h2 class="fw-bold text-white mb-3">Date</h2>
+                <input
+                  type="number"
+                  id="date"
+                  minlength="1"
+                  maxlength="31"
+                  class="form-control p-3"
+                  placeholder="DD"
+                />
+              </div>
+              <div class="age_box text-center">
+                <h2 class="fw-bold text-white mb-3">Month</h2>
+                <input
+                  type="number"
+                  id="month"
+                  min="1"
+                  max="12"
+                  class="form-control p-3"
+                  placeholder="MM"
+                />
+              </div>
+              <div class="age_box text-center">
+                <h2 class="fw-bold text-white mb-3">Year</h2>
+                <input
+                  type="number"
+                  id="year"
+                  min="1900"
+                  max="2023"
+                  class="form-control p-3"
+                  placeholder="YY"
+                />
+              </div>
+            </div>
+            <button class="btn btn-primary">Calculate</button>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-lg-5 mx-auto">
+          <div class="">
+            <div class="row d-flex align-items-center justify-content-between">
+              <div class="col-3">
+                <div class="result_box text-center">
+                  <h2 class="text-white fw-bold year-result-box">00</h2>
+                  <p class="text-secondary mb-0">Years</p>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="result_box text-center">
+                  <h2 class="text-white fw-bold month-result-box">00</h2>
+                  <p class="text-secondary mb-0">Month</p>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="result_box text-center">
+                  <h2 class="text-white fw-bold day-result-box">00</h2>
+                  <p class="text-secondary mb-0">Days</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIP START -->
+    <script>
+      const resultBtn = document.querySelector(".btn-primary");
+
+      const calculateAge = () => {
+        const dateValue = document.querySelector("#date").value;
+        const monthValue = document.querySelector("#month").value;
+        const yearValue = document.querySelector("#year").value;
+        const dateBox = document.querySelector(".day-result-box");
+        const MonthBox = document.querySelector(".month-result-box");
+        const YearBox = document.querySelector(".year-result-box");
+
+
+        if (dateValue > 31 || monthValue > 12) {
+          alert("Please enter valid date and month");
+          return;
+        } else if (
+          dateValue.length === 0 ||
+          monthValue.length === 0 ||
+          yearValue.length === 0
+        ) {
+          alert("Please enter your complete date of birth...");
+          return;
+        }
+
+        const newDate = new Date(`${yearValue}-${monthValue}-${dateValue}`);            // CREATING NEW DATE USING INPUT VALUE
+        const currentDate = new Date();     // FINDING CURRENT DATE
+
+        const years = currentDate.getFullYear() - newDate.getFullYear();    // CALCULATING TOTAL YEAR USING CURRENTDATE AND NEWdATE
+        const months = currentDate.getMonth() - newDate.getMonth();         // CALCULATING TOTAL MONTH USING CURRENTDATE AND NEWdATE
+        const days = currentDate.getDate() - newDate.getDate();             // CALCULATING TOTAL DAYS USING CURRENTDATE AND NEWdATE
+
+        // DISPLAYING YEAR MONTH AND DAYS ON SCREEN
+        YearBox.textContent = years;
+        MonthBox.textContent = months;
+        dateBox.textContent = days;
+      };
+
+      window.addEventListener('keyup' , (event) => {            //WHEN USER PRES ENTER KEY AFTER ADDING VALUES THEN ALSO IT'S WORK
+        if(event.key === 'Enter') {
+            calculateAge()
+        }
+      })
+
+      resultBtn.addEventListener("click", calculateAge);
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
